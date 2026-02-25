@@ -5,10 +5,15 @@ import Marketplace from "@/components/Marketplace";
 import PriceCalculator from "@/components/PriceCalculator";
 import FarmTips from "@/components/FarmTips";
 import DiseaseAlerts from "@/components/DiseaseAlerts";
+import MyListings from "@/components/MyListings";
+import MyOrders from "@/components/MyOrders";
+import Auth from "@/pages/Auth";
 import Footer from "@/components/Footer";
+import { useAuth } from "@/hooks/useAuth";
 
 const Index = () => {
   const [activeTab, setActiveTab] = useState("home");
+  const { user } = useAuth();
 
   const renderContent = () => {
     switch (activeTab) {
@@ -22,6 +27,12 @@ const Index = () => {
         return <FarmTips />;
       case "alerts":
         return <DiseaseAlerts />;
+      case "my-listings":
+        return user ? <MyListings /> : <Auth onSuccess={() => setActiveTab("my-listings")} />;
+      case "orders":
+        return user ? <MyOrders /> : <Auth onSuccess={() => setActiveTab("orders")} />;
+      case "auth":
+        return <Auth onSuccess={() => setActiveTab("home")} />;
       default:
         return <HeroSection onNavigate={setActiveTab} />;
     }

@@ -14,7 +14,206 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      disease_alerts: {
+        Row: {
+          actions: string[]
+          created_at: string
+          created_by: string | null
+          date: string
+          description: string
+          id: string
+          is_active: boolean
+          region: string
+          severity: string
+          title: string
+        }
+        Insert: {
+          actions?: string[]
+          created_at?: string
+          created_by?: string | null
+          date?: string
+          description?: string
+          id?: string
+          is_active?: boolean
+          region?: string
+          severity?: string
+          title: string
+        }
+        Update: {
+          actions?: string[]
+          created_at?: string
+          created_by?: string | null
+          date?: string
+          description?: string
+          id?: string
+          is_active?: boolean
+          region?: string
+          severity?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "disease_alerts_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      listings: {
+        Row: {
+          available_kg: number
+          created_at: string
+          description: string | null
+          farmer_id: string
+          id: string
+          is_active: boolean
+          price_per_kg: number
+          size_category: string
+          updated_at: string
+        }
+        Insert: {
+          available_kg?: number
+          created_at?: string
+          description?: string | null
+          farmer_id: string
+          id?: string
+          is_active?: boolean
+          price_per_kg?: number
+          size_category?: string
+          updated_at?: string
+        }
+        Update: {
+          available_kg?: number
+          created_at?: string
+          description?: string | null
+          farmer_id?: string
+          id?: string
+          is_active?: boolean
+          price_per_kg?: number
+          size_category?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "listings_farmer_id_fkey"
+            columns: ["farmer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      orders: {
+        Row: {
+          buyer_id: string
+          created_at: string
+          farmer_id: string
+          id: string
+          listing_id: string
+          payment_confirmed: boolean
+          payment_method: string | null
+          pickup_date: string | null
+          pickup_location: string | null
+          quantity_kg: number
+          status: string
+          total_price: number
+          updated_at: string
+        }
+        Insert: {
+          buyer_id: string
+          created_at?: string
+          farmer_id: string
+          id?: string
+          listing_id: string
+          payment_confirmed?: boolean
+          payment_method?: string | null
+          pickup_date?: string | null
+          pickup_location?: string | null
+          quantity_kg: number
+          status?: string
+          total_price: number
+          updated_at?: string
+        }
+        Update: {
+          buyer_id?: string
+          created_at?: string
+          farmer_id?: string
+          id?: string
+          listing_id?: string
+          payment_confirmed?: boolean
+          payment_method?: string | null
+          pickup_date?: string | null
+          pickup_location?: string | null
+          quantity_kg?: number
+          status?: string
+          total_price?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "orders_buyer_id_fkey"
+            columns: ["buyer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_farmer_id_fkey"
+            columns: ["farmer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "orders_listing_id_fkey"
+            columns: ["listing_id"]
+            isOneToOne: false
+            referencedRelation: "listings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          full_name: string
+          id: string
+          location: string | null
+          phone: string | null
+          role: string
+          updated_at: string
+          user_id: string
+          verified: boolean
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string
+          id?: string
+          location?: string | null
+          phone?: string | null
+          role?: string
+          updated_at?: string
+          user_id: string
+          verified?: boolean
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string
+          id?: string
+          location?: string | null
+          phone?: string | null
+          role?: string
+          updated_at?: string
+          user_id?: string
+          verified?: boolean
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
